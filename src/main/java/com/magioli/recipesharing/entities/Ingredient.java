@@ -1,0 +1,80 @@
+package com.magioli.recipesharing.entities;
+
+import com.magioli.recipesharing.enums.IngredientUnit;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import java.math.BigDecimal;
+
+@Entity
+@Table(name = "ingredients")
+public class Ingredient {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
+    @Column(name = "value", precision = 5, scale = 2, nullable = false)
+    private BigDecimal value;
+
+    @NotNull
+    @Column(name = "unit", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private IngredientUnit unit;
+
+    @NotNull
+    @Column(name = "type", length = 60, nullable = false)
+    private String type;
+
+    @NotNull
+    @JoinColumn(name = "recipe_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Recipe recipe;
+
+    public Ingredient(BigDecimal value, IngredientUnit unit, String type, Recipe recipe) {
+        this.value = value;
+        this.unit = unit;
+        this.type = type;
+        this.recipe = recipe;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public BigDecimal getValue() {
+        return value;
+    }
+
+    public void setValue(BigDecimal value) {
+        this.value = value;
+    }
+
+    public IngredientUnit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(IngredientUnit unit) {
+        this.unit = unit;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
+}
