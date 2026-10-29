@@ -2,6 +2,9 @@ package com.magioli.recipesharing.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -10,8 +13,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "recipes")
+@Getter @Setter
 public class Recipe {
 
+    @Setter(AccessLevel.NONE)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -42,6 +47,7 @@ public class Recipe {
     @OnDelete(action = OnDeleteAction.CASCADE)
     RecipeSharingUser user;
 
+    @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Ingredient> ingredientsList = new ArrayList<>();
 
@@ -52,62 +58,6 @@ public class Recipe {
         this.instructions = recipeBuilder.instructions;
         this.servings = recipeBuilder.servings;
         this.user = recipeBuilder.user;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public String getInstructions() {
-        return instructions;
-    }
-
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
-    }
-
-    public int getServings() {
-        return servings;
-    }
-
-    public void setServings(int servings) {
-        this.servings = servings;
-    }
-
-    public RecipeSharingUser getUser() {
-        return user;
-    }
-
-    public void setUser(RecipeSharingUser user) {
-        this.user = user;
-    }
-
-    public List<Ingredient> getIngredientsList() {
-        return ingredientsList;
     }
 
     public static class RecipeBuilder {

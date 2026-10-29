@@ -3,6 +3,9 @@ package com.magioli.recipesharing.entities;
 import com.magioli.recipesharing.enums.IngredientUnit;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -10,8 +13,10 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "ingredients")
+@Getter @Setter
 public class Ingredient {
 
+    @Setter(AccessLevel.NONE)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,42 +44,6 @@ public class Ingredient {
         this.value = value;
         this.unit = unit;
         this.type = type;
-        this.recipe = recipe;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public BigDecimal getValue() {
-        return value;
-    }
-
-    public void setValue(BigDecimal value) {
-        this.value = value;
-    }
-
-    public IngredientUnit getUnit() {
-        return unit;
-    }
-
-    public void setUnit(IngredientUnit unit) {
-        this.unit = unit;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
     }
 }
