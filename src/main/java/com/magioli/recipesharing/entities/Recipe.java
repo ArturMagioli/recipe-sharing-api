@@ -14,12 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "recipes")
 @Getter @Setter
-public class Recipe {
-
-    @Setter(AccessLevel.NONE)
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Recipe extends BaseEntity{
 
     @Column(name = "title", length = 50, nullable = false)
     private String title;

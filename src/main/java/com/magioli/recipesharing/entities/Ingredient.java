@@ -14,12 +14,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "ingredients")
 @Getter @Setter
-public class Ingredient {
-
-    @Setter(AccessLevel.NONE)
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Ingredient extends BaseEntity{
 
     @NotNull
     @Column(name = "value", precision = 5, scale = 2, nullable = false)

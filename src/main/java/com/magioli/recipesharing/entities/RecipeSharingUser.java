@@ -12,13 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Getter @Setter
-public class RecipeSharingUser {
-
-    @Setter(AccessLevel.NONE)
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class RecipeSharingUser extends BaseEntity {
 
     @NotBlank
     @Column(name = "username", nullable = false)
@@ -36,8 +30,7 @@ public class RecipeSharingUser {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Recipe> recipes = new ArrayList<>();
 
-    public RecipeSharingUser(Long id, String username, String password, String email) {
-        this.id = id;
+    public RecipeSharingUser(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
