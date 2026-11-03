@@ -2,15 +2,15 @@ package com.magioli.recipesharing.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter @Setter
 public class RecipeSharingUser extends BaseEntity {
 
@@ -29,10 +29,4 @@ public class RecipeSharingUser extends BaseEntity {
     @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Recipe> recipes = new ArrayList<>();
-
-    public RecipeSharingUser(String username, String password, String email) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-    }
 }

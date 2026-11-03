@@ -1,6 +1,6 @@
 --Users
 INSERT INTO users (username, password, email) VALUES
-    ('ArturMagioli', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'arturdepaula00@gmail.com'),
+    ('ArturMagioli', '$2a$12$zFMJtAfKlh5Py3j9zbYlAuAZdKwXP3Wazx92ro88Tt2bUGObFmSmW', 'arturdepaula00@gmail.com'),
     ('JoaoSilva', '$2a$10$7EqJtq98hPqEX7fNZaFWoO5dZ6K5g5qJ5J5J5J5J5J5J5J5J5J5J5', 'joao.silva@gmail.com'),
     ('MariaOliveira', '$2a$10$WvvTP4p5qZ7gF6x8J9k0LuX1Y2Z3aBcDeFgHiJkLmNoPqRsTuVwXy', 'maria.oliveira@gmail.com'),
     ('PedroSantos', '$2a$10$K8v3J2mN5pQ7rT9wX1yZaO6bC4dE8fG0hI2jL5kM7nP9qR1sT3uVw', 'pedro.santos@gmail.com'),
