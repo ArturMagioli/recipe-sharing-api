@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -28,15 +29,22 @@ public class SecurityConfiguration {
     @Qualifier("publicPaths")
     private final List<String> publicPaths;
 
+    @Qualifier("authenticatedPaths")
+    private final List<String> authenticatedPaths;
+
+    private final TokenValidationFilter tokenValidationFilter;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests( request -> {
                 publicPaths.forEach(path -> request.requestMatchers(path).permitAll());
+                authenticatedPaths.forEach(path -> request.requestMatchers(path).authenticated());
                 request.anyRequest().denyAll();
             })
             .formLogin(flc -> flc.disable())
             .httpBasic(hbc -> hbc.disable())
+            .addFilterBefore(tokenValidationFilter, BasicAuthenticationFilter.class)
             .csrf(csrf -> {
                 publicPaths.forEach(path -> csrf.ignoringRequestMatchers(path));
             })

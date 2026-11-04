@@ -11,7 +11,7 @@ public class PathConfig {
     @Bean(name = "publicPaths")
     public List<String> publicPaths() {
         return List.of(
-                "/users/login",
+                "/auth/login",
                 "/h2-console/**"
         );
     }

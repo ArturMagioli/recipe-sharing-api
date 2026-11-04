@@ -7,4 +7,5 @@ public class ApplicationConstants {
     }
 
     public static final String DEFAULT_JWT_SECRET = "XwDCtNcAEiCxDQQui-ASw582NZ3FSKvIsqulO7K_vkY";
+    public static final String AUTHORIZATION_TOKEN_HEADER = "Authorization";
 }
