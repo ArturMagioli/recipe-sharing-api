@@ -1,4 +1,8 @@
 package com.magioli.recipesharing.user.dto;
 
-public record RecipeSharingUserDto(String username, String email) {
+import com.magioli.recipesharing.entities.Recipe;
+
+import java.util.List;
+
+public record RecipeSharingUserDto(String username, String email, List<Recipe> recipes) {
 }
