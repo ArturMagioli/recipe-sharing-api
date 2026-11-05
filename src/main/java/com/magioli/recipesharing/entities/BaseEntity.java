@@ -26,12 +26,18 @@ public class BaseEntity {
     @Column(name = "created_by", length = 20,  nullable = false, updatable = false)
     private String createdBy;
 
-    @NotNull
     @UpdateTimestamp
     @Column(name = "updated_at", insertable = false)
     private Instant updatedAt;
 
-    @NotNull
     @Column(name = "updated_by", length = 20, insertable = false)
     private String updatedBy;
+
+    @PrePersist
+    public void prePersist() {
+        createdAt = Instant.now();
+        if (createdBy == null) {
+            createdBy = "System";
+        }
+    }
 }
