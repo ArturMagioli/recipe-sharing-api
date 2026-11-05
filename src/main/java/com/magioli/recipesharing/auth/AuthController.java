@@ -34,7 +34,7 @@ public class AuthController {
         RecipeSharingUser user = (RecipeSharingUser) authentication.getPrincipal();
         String token = jwtUtil.generateToken(authentication);
         LoginResponseDto response = new LoginResponseDto(
-                new RecipeSharingUserDto(user.getUsername(), user.getEmail(), user.getRecipes()),
+                new RecipeSharingUserDto(user.getUsername(), user.getEmail()),
                 token);
         return ResponseEntity.ok(response);
     }

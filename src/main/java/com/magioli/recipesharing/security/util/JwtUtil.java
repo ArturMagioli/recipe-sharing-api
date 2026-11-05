@@ -50,7 +50,7 @@ public class JwtUtil {
         String email = String.valueOf(claims.get("email"));
 
         Authentication auth = UsernamePasswordAuthenticationToken.
-                authenticated(new RecipeSharingUserDto(username, email, Collections.emptyList()), null, Collections.emptyList());
+                authenticated(new RecipeSharingUserDto(username, email), null, Collections.emptyList());
 
         return auth;
     }

@@ -44,6 +44,6 @@ public class RecipeSharingUserServiceImpl implements RecipeSharingUserService {
     }
 
     private RecipeSharingUserDto convertUserToDto(RecipeSharingUser user) {
-        return new RecipeSharingUserDto(user.getUsername(), user.getEmail(), user.getRecipes());
+        return new RecipeSharingUserDto(user.getUsername(), user.getEmail());
     }
 }
