@@ -39,6 +39,6 @@ public class GlobalHandleException {
                 .map(error -> error.getDefaultMessage())
                 .collect(Collectors.toList());
         ExceptionResponseDto exceptionResponse = new ExceptionResponseDto(e.getStatusCode(), errorMessages);
-        return ResponseEntity.internalServerError().body(exceptionResponse);
+        return ResponseEntity.badRequest().body(exceptionResponse);
     }
 }
