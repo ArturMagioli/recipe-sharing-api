@@ -12,6 +12,7 @@ public class PathConfig {
     public List<String> publicPaths() {
         return List.of(
                 "/auth/login",
+                "/auth/register",
                 "/h2-console/**"
         );
     }

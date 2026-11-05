@@ -2,9 +2,11 @@ package com.magioli.recipesharing.auth;
 
 import com.magioli.recipesharing.auth.dto.LoginRequestDto;
 import com.magioli.recipesharing.auth.dto.LoginResponseDto;
+import com.magioli.recipesharing.auth.dto.RecipeSharingUserRequestRequestDto;
 import com.magioli.recipesharing.entities.RecipeSharingUser;
 import com.magioli.recipesharing.security.util.JwtUtil;
 import com.magioli.recipesharing.user.dto.RecipeSharingUserDto;
+import com.magioli.recipesharing.user.service.RecipeSharingUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,6 +25,7 @@ public class AuthController {
 
     private final JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
+    private final RecipeSharingUserService userService;
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> login(@RequestBody @Validated LoginRequestDto loginRequestDto) {
@@ -36,6 +39,11 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<RecipeSharingUserDto> register(@RequestBody @Validated RecipeSharingUserRequestRequestDto userDto) {
+        RecipeSharingUserDto createdUser = userService.create(userDto);
+        return ResponseEntity.ok(createdUser);
+    }
     private Authentication convertDtoToAuthentication(LoginRequestDto loginRequestDto) {
         return new UsernamePasswordAuthenticationToken(loginRequestDto.email(), loginRequestDto.password());
     }
