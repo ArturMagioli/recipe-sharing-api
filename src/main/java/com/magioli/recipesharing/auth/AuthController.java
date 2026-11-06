@@ -8,6 +8,7 @@ import com.magioli.recipesharing.security.util.JwtUtil;
 import com.magioli.recipesharing.user.dto.RecipeSharingUserDto;
 import com.magioli.recipesharing.user.service.RecipeSharingUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -42,7 +43,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<RecipeSharingUserDto> register(@RequestBody @Validated RecipeSharingUserRequestRequestDto userDto) {
         RecipeSharingUserDto createdUser = userService.create(userDto);
-        return ResponseEntity.ok(createdUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
     private Authentication convertDtoToAuthentication(LoginRequestDto loginRequestDto) {
         return new UsernamePasswordAuthenticationToken(loginRequestDto.email(), loginRequestDto.password());
