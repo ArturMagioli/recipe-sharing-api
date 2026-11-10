@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface RecipeSharingUserRepository extends JpaRepository<RecipeSharingUser, Long> {
 
     Optional<RecipeSharingUser> findByEmail(String email);
+
+    void deleteByEmail(String email);
 }

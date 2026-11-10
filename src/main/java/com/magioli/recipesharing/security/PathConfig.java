@@ -16,4 +16,11 @@ public class PathConfig {
                 "/h2-console/**"
         );
     }
+
+    @Bean(name = "authenticatedPaths")
+    public List<String> authenticatedPaths() {
+        return List.of(
+                "/users/**"
+        );
+    }
 }

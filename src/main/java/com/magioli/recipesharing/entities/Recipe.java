@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -14,6 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "recipes")
 @Getter @Setter
+@NoArgsConstructor
 public class Recipe extends BaseEntity{
 
     @Column(name = "title", length = 50, nullable = false)

@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public record RecipeSharingUserRequestRequestDto(
+public record RegisterRequestDto(
 
         @NotBlank(message = "Username must be provided.")
         @Size(min = 3, max = 255, message = "username must have between 3 and 255 letters")

@@ -1,5 +1,6 @@
 package com.magioli.recipesharing.exception;
 
+import com.magioli.recipesharing.exception.custom.ResourceNotFoundException;
 import com.magioli.recipesharing.exception.dto.ExceptionResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,5 +42,11 @@ public class GlobalHandleException {
                 .collect(Collectors.toList());
         ExceptionResponseDto exceptionResponse = new ExceptionResponseDto(e.getStatusCode(), errorMessages);
         return ResponseEntity.badRequest().body(exceptionResponse);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ExceptionResponseDto> handleResourceNotFoundException(ResourceNotFoundException e) {
+        ExceptionResponseDto exceptionResponse = new ExceptionResponseDto(e.getSTATUS_CODE(), List.of(e.getMessage()));
+        return ResponseEntity.status(e.getSTATUS_CODE()).body(exceptionResponse);
     }
 }

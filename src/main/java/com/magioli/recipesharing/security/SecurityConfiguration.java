@@ -48,6 +48,7 @@ public class SecurityConfiguration {
             .addFilterBefore(tokenValidationFilter, BasicAuthenticationFilter.class)
             .csrf(csrf -> {
                 publicPaths.forEach(path -> csrf.ignoringRequestMatchers(path));
+                authenticatedPaths.forEach(path -> csrf.ignoringRequestMatchers(path));
             })
             .headers(headers ->
                     headers.frameOptions(frame -> frame.sameOrigin()))

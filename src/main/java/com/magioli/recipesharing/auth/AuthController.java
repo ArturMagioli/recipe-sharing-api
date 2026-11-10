@@ -2,7 +2,7 @@ package com.magioli.recipesharing.auth;
 
 import com.magioli.recipesharing.auth.dto.LoginRequestDto;
 import com.magioli.recipesharing.auth.dto.LoginResponseDto;
-import com.magioli.recipesharing.auth.dto.RecipeSharingUserRequestRequestDto;
+import com.magioli.recipesharing.auth.dto.RegisterRequestDto;
 import com.magioli.recipesharing.entities.RecipeSharingUser;
 import com.magioli.recipesharing.security.util.JwtUtil;
 import com.magioli.recipesharing.user.dto.RecipeSharingUserDto;
@@ -41,7 +41,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<RecipeSharingUserDto> register(@RequestBody @Validated RecipeSharingUserRequestRequestDto userDto) {
+    public ResponseEntity<RecipeSharingUserDto> register(@RequestBody @Validated RegisterRequestDto userDto) {
         RecipeSharingUserDto createdUser = userService.create(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
