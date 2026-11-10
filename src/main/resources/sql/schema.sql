@@ -28,9 +28,9 @@ CREATE TABLE IF NOT EXISTS recipes (
 CREATE TABLE IF NOT EXISTS ingredients (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     recipe_id BIGINT NOT NULL,
-    "value" DECIMAL(5,2) NOT NULL,
+    ingredient_value DECIMAL(5,2) NOT NULL,
     unit ENUM ('G', 'KG', 'ML', 'L', 'PC', 'TSP', 'TBSP', 'PINCH') NOT NULL,
-    "type" varchar (60) NOT NULL,
+    ingredient_type varchar (60) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     created_by varchar(20) DEFAULT 'System' NOT NULL,
     updated_at TIMESTAMP NULL,

@@ -123,7 +123,7 @@ INSERT INTO recipes (user_id, title, description, ingredients, instructions, ser
     'texture or freeze for another 1 to 2 hours for a firmer consistency.', 4);
 
 --Ingredients
-INSERT INTO ingredients (recipe_id, "value", unit, "type") VALUES
+INSERT INTO ingredients (recipe_id, ingredient_value, unit, ingredient_type) VALUES
 -- Recipe 1: Carrot Cake with Chocolate Frosting
     (1, 120, 'ML', 'vegetable oil'),
     (1, 3, 'PC', 'carrots'),
