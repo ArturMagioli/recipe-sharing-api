@@ -20,7 +20,8 @@ public class PathConfig {
     @Bean(name = "authenticatedPaths")
     public List<String> authenticatedPaths() {
         return List.of(
-                "/users/**"
+                "/users/**",
+                "/recipes/**"
         );
     }
 }

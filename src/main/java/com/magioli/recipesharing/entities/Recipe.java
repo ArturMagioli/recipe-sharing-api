@@ -16,6 +16,15 @@ import java.util.List;
 @Table(name = "recipes")
 @Getter @Setter
 @NoArgsConstructor
+@NamedQueries({
+        @NamedQuery(name = "Recipe.findRecipeByUsernameLikeAndTitleLike",
+                    query = "SELECT r FROM Recipe r " +
+                            "WHERE UPPER(r.user.username) LIKE CONCAT('%', UPPER(:username), '%') " +
+                            "AND UPPER(r.title) LIKE CONCAT('%', UPPER(:title), '%')"),
+        @NamedQuery(name = "Recipe.findRecipeByUsernameLike",
+                    query = "SELECT r FROM Recipe r " +
+                            "WHERE UPPER(r.user.username) LIKE CONCAT('%', UPPER(:username), '%')")
+})
 public class Recipe extends BaseEntity{
 
     @Column(name = "title", length = 50, nullable = false)

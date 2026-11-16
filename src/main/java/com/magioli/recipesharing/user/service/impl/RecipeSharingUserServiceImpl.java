@@ -7,6 +7,7 @@ import com.magioli.recipesharing.repositories.RecipeSharingUserRepository;
 import com.magioli.recipesharing.user.dto.RecipeSharingUserDto;
 import com.magioli.recipesharing.user.dto.RecipeSharingUserResponseDto;
 import com.magioli.recipesharing.user.service.RecipeSharingUserService;
+import com.magioli.recipesharing.util.ClassConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -27,6 +28,7 @@ public class RecipeSharingUserServiceImpl implements RecipeSharingUserService {
     private final HaveIBeenPwnedRestApiPasswordChecker passwordChecker;
     private final PasswordEncoder passwordEncoder;
     private final RecipeSharingUserRepository userRepository;
+    private final ClassConverter converter;
 
     @Override
     public List<RecipeSharingUserResponseDto> findAll() {
@@ -57,7 +59,7 @@ public class RecipeSharingUserServiceImpl implements RecipeSharingUserService {
         String encodedPassword = passwordEncoder.encode(password);
         RecipeSharingUser newUser = new RecipeSharingUser(userDto.username(), encodedPassword, email);
         userRepository.save(newUser);
-        return convertUserToDto(newUser);
+        return converter.convertUserToDto(newUser);
     }
 
     @Transactional
@@ -73,10 +75,6 @@ public class RecipeSharingUserServiceImpl implements RecipeSharingUserService {
     @Override
     public void deleteByEmail(String email) {
         userRepository.deleteByEmail(email);
-    }
-
-    private RecipeSharingUserDto convertUserToDto(RecipeSharingUser user) {
-        return new RecipeSharingUserDto(user.getUsername(), user.getEmail());
     }
 
     private RecipeSharingUserResponseDto convertUserToResponseDto(RecipeSharingUser user) {
