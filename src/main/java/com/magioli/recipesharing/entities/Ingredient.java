@@ -42,4 +42,10 @@ public class Ingredient extends BaseEntity{
         this.ingredientType = type;
         this.recipe = recipe;
     }
+
+    public Ingredient(BigDecimal value, IngredientUnit unit, String type) {
+        this.ingredientValue = value;
+        this.unit = unit;
+        this.ingredientType = type;
+    }
 }

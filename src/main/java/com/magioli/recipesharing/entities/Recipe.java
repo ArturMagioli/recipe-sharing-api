@@ -1,5 +1,6 @@
 package com.magioli.recipesharing.entities;
 
+import com.magioli.recipesharing.enums.IngredientUnit;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,6 @@ public class Recipe extends BaseEntity{
     @Column(name = "title", length = 50, nullable = false)
     private String title;
 
-    @NotBlank
     @Lob
     @Column(name = "description")
     private String description;
@@ -46,7 +47,7 @@ public class Recipe extends BaseEntity{
     private String instructions;
 
     @Column(name = "servings")
-    private int servings;
+    private Integer servings;
 
     @JoinColumn(name = "user_id", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -55,7 +56,7 @@ public class Recipe extends BaseEntity{
 
     @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<Ingredient> ingredientsList = new ArrayList<>();
+    private final List<Ingredient> ingredientList = new ArrayList<>();
 
     public Recipe(RecipeBuilder recipeBuilder) {
         this.title = recipeBuilder.title;
@@ -66,12 +67,36 @@ public class Recipe extends BaseEntity{
         this.user = recipeBuilder.user;
     }
 
+    public void createIngredientList() {
+        String[] ingredientArray = ingredients.split(",");
+        for (String ingredient : ingredientArray) {
+            String[] ingredientDetails = ingredient.split(" ");
+            String type = getType(ingredientDetails);
+            Ingredient newIngredient = new Ingredient(BigDecimal.valueOf(Double.valueOf(ingredientDetails[0])),
+                    IngredientUnit.valueOf(ingredientDetails[1].toUpperCase()), type);
+            this.addIngredient(newIngredient);
+        }
+    }
+
+    private String getType(String[] ingredientDetails) {
+        String type = ingredientDetails[2];
+        for (int i = 3; i < ingredientDetails.length; i++) {
+            type += " " + ingredientDetails[i];
+        }
+        return type;
+    }
+
+    public void addIngredient(Ingredient ingredient) {
+        ingredientList.add(ingredient);
+        ingredient.setRecipe(this);
+    }
+
     public static class RecipeBuilder {
         private String title;
         private String description;
         private String ingredients;
         private String instructions;
-        private int servings;
+        private Integer servings;
         private RecipeSharingUser user;
 
         public RecipeBuilder title(String title) {
@@ -94,13 +119,18 @@ public class Recipe extends BaseEntity{
             return this;
         }
 
-        public RecipeBuilder servings(int servings) {
+        public RecipeBuilder servings(Integer servings) {
             this.servings = servings;
             return this;
         }
 
         public RecipeBuilder user(RecipeSharingUser user) {
             this.user = user;
+            return this;
+        }
+
+        public RecipeBuilder withoutUser() {
+            this.user = null;
             return this;
         }
 

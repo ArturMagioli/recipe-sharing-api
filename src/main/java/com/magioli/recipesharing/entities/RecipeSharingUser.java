@@ -29,4 +29,9 @@ public class RecipeSharingUser extends BaseEntity {
     @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Recipe> recipes = new ArrayList<>();
+
+    public void addRecipe(Recipe recipe) {
+        recipes.add(recipe);
+        recipe.setUser(this);
+    }
 }
